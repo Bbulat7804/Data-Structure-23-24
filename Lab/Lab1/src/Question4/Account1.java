@@ -68,7 +68,7 @@ public class Account1 {
         System.out.println("Balance : " + balance);
         
         for(int i=0 ; i<transactions.size() ; i++){
-            System.out.println("\n\u001B[36mTransaction     " + (i+1));
+            System.out.println("\n\u001B[36mTransaction 1" + (i+1));
             System.out.println(transactions.get(i));
         }
     }
