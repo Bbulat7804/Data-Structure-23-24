@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class write {
     public static void main(String[] args) {
         try {
-            PrintWriter output =  new PrintWriter (new FileOutputStream ("Hazim_22001772.txt", true));
+            PrintWriter output =  new PrintWriter (new FileOutputStream ("ABU_12345678.txt", true));
             Scanner input = new Scanner (System.in);
             System.out.print("Enter curahat anda: ");
             output.println(input.nextLine());

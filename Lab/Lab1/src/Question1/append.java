@@ -5,7 +5,7 @@ import java.io.*;
 public class append {
     public static void main(String[] args) {
         try {
-            PrintWriter output = new PrintWriter (new FileOutputStream ("Hazim_22001772.txt", true));
+            PrintWriter output = new PrintWriter (new FileOutputStream ("ABU_12345678.txt", true));
             
             output.println("Saya tido dalam kelas.");
             output.println("Tidak, saya kiciwa");
