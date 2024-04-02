@@ -1,0 +1,21 @@
+package Question1;
+
+public class main1 {
+    public static void main(String[] args) {
+        ArrayBag<Integer> bag = new ArrayBag<>();
+        System.out.println(bag.getCurrentSize());
+        bag.add(1);
+        bag.add(2);
+        bag.add(3);
+        bag.add(1);
+        bag.add(1);
+        bag.add(4);
+        System.out.println(bag.getCurrentSize());
+        bag.remove(1);
+        System.out.println(bag.getCurrentSize());
+        Object[] array = bag.toArray();
+        for(int i=0 ; i<array.length ; i++){
+            System.out.println(array[i]);
+        }
+    }
+}
