@@ -10,12 +10,12 @@ public class main1 {
         bag.add(1);
         bag.add(1);
         bag.add(4);
-        System.out.println(bag.getCurrentSize());
-        bag.remove(1);
-        System.out.println(bag.getCurrentSize());
+        System.out.println("size = " + bag.getCurrentSize());
+        bag.remove(3);
+        System.out.println("size = " + bag.getCurrentSize());
         Object[] array = bag.toArray();
         for(int i=0 ; i<array.length ; i++){
-            System.out.println(array[i]);
+            System.out.print(array[i] + " ");
         }
     }
 }

@@ -1,19 +1,25 @@
 package Question1;
 
-public class ArrayBag<T> implements BagInterface{
+import java.util.Arrays;
 
-    private int DEFAULT_CAPACITY = 25;
-    private int numberOfEntries = 0;
-    T[] bag;
-    
-    ArrayBag(){
-        bag = (T[])new Object[DEFAULT_CAPACITY];
+public class ArrayBag<T> implements BagInterface<T>{
+  private static final int DEFAULT_CAPACITY = 25; // Default capacity of the bag
+    private T[] bag; // Array to store the bag items
+    private int numberOfEntries; // Current number of items in the bag
+
+    // Default constructor initializes the bag with default capacity
+    public ArrayBag() {
+        this(DEFAULT_CAPACITY);
     }
-    
-    ArrayBag(int capacity){
-        bag = (T[])new Object[capacity];
+
+    // Constructor initializes the bag with a given capacity
+    public ArrayBag(int capacity) {
+        @SuppressWarnings("unchecked")
+        T[] tempBag = (T[]) new Object[capacity];
+        bag = tempBag;
+        numberOfEntries = 0;
     }
-    
+
     @Override
     public int getCurrentSize() {
         return numberOfEntries;
@@ -21,103 +27,87 @@ public class ArrayBag<T> implements BagInterface{
 
     @Override
     public boolean isFull() {
-        if (numberOfEntries == bag.length)
-            return true;
-        else
-            return false;
+        return numberOfEntries == bag.length;
     }
 
     @Override
     public boolean isEmpty() {
-        if (numberOfEntries == 0)
-            return true;
-        else
-            return false;
+        return numberOfEntries == 0;
     }
 
     @Override
-    public boolean add(Object newEntry) {
-        if (isFull()){
+    public boolean add(T newEntry) {
+        if (isFull()) {
             return false;
         }
-        
-        for(int i=0 ; i<bag.length ; i++){
-            if(bag[i]==null){
-                bag[i] = (T)newEntry;
-                numberOfEntries++;
-                break;
-            }
-        }
+        bag[numberOfEntries] = newEntry;
+        numberOfEntries++;
         return true;
     }
 
     @Override
-    public Object remove() {
-        Object removed = null;
-        if (isEmpty());
-        
-        else {
-            for(int i=0 ; i<bag.length ; i++){
-                if(bag[i]!=null){
-                    removed = bag[i];
-                    bag[i] = null;
-                    numberOfEntries--;
-                    break;
-                }
-            }
+    public T remove() {
+        if (isEmpty()) {
+            return null;
         }
-        return removed;
+        T removedItem = bag[numberOfEntries - 1];
+        bag[numberOfEntries - 1] = null; // Dereference the removed item
+        numberOfEntries--;
+        return removedItem;
     }
 
     @Override
-    public boolean remove(Object anEntry) {
-        for(int i=0 ; i<bag.length ; i++){
-            if(bag[i]!=null && bag[i].equals(anEntry)){
-                bag[i] = null;
-                numberOfEntries--;
-            }
+    public boolean remove(T anEntry) {
+        int index = getIndexOf(anEntry);
+        if (index == -1) {
+            return false;
         }
+        bag[index] = bag[numberOfEntries - 1];
+        bag[numberOfEntries - 1] = null; // Dereference the last item
+        numberOfEntries--;
         return true;
     }
 
     @Override
     public void clear() {
-        for(int i=0 ; i<bag.length ; i++){
-            bag[i] = null;
-        }
+        Arrays.fill(bag, null); // Dereference all items in the bag
         numberOfEntries = 0;
     }
 
     @Override
-    public int getFrequencyOf(Object anEntry) {
+    public int getFrequencyOf(T anEntry) {
         int frequency = 0;
-        for(int i=0 ; i<bag.length ; i++){
-            if(anEntry.equals(bag[i]))
+        for (int i = 0; i < numberOfEntries; i++) {
+            if (bag[i].equals(anEntry)) {
                 frequency++;
+            }
         }
         return frequency;
     }
 
     @Override
-    public boolean contains(Object anEntry) {
-        for(int i=0 ; i<bag.length ; i++){
-            if(bag[i].equals(anEntry))
-                return true;
-        }
-        return false;
+    public boolean contains(T anEntry) {
+        return getIndexOf(anEntry) != -1;
     }
 
     @Override
-    public Object[] toArray() {
-        Object[] array = new Object[numberOfEntries];
-        
-        int index = 0;
-        for(int i=0 ; i<bag.length ; i++){
-            if(bag[i]!=null)
-                array[index++] = bag[i];
+    public T[] toArray() {
+        @SuppressWarnings("unchecked")
+        T[] result = (T[]) new Object[numberOfEntries];
+        for(int i=0 ; i<numberOfEntries ; i++){
+            result[i] = bag[i];
         }
-        return array;
+        return result;
     }
 
+    // Helper method to get the index of an entry in the bag
+    private int getIndexOf(T anEntry) {
+        for (int i = 0; i < numberOfEntries; i++) {
+            if (bag[i].equals(anEntry)) {
+                return i;
+            }
+        }
+        return -1; // Entry not found
+    }
    
 }
