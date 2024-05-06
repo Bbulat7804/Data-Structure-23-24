@@ -22,5 +22,6 @@ public class Dispenser {
             numOfItems -= bilangan;
             return true;
         }
+        return false;
     }
 }
